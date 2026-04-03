@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Quiz</title>
+</head>
+<body>
+
+<h2>Add Quiz</h2>
+
+<form id="quizForm">
+    Question: <input type="text" id="question"><br><br>
+    Option 1: <input type="text" id="option1"><br><br>
+    Option 2: <input type="text" id="option2"><br><br>
+    Option 3: <input type="text" id="option3"><br><br>
+    Option 4: <input type="text" id="option4"><br><br>
+    Correct Answer: <input type="text" id="correctAnswer"><br><br>
+
+    <button type="submit">Add Quiz</button>
+</form>
+
+<script>
+document.getElementById("quizForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const data = {
+        question: document.getElementById("question").value,
+        option1: document.getElementById("option1").value,
+        option2: document.getElementById("option2").value,
+        option3: document.getElementById("option3").value,
+        option4: document.getElementById("option4").value,
+        correctAnswer: document.getElementById("correctAnswer").value
+    };
+
+    fetch("http://localhost:8080/quiz/add", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("Quiz Added Successfully ✅");
+        console.log(data);
+    })
+    .catch(err => console.error(err));
+});
+</script>
+
+</body>
+</html>
